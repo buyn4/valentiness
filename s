@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.card {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 10;
+    animation: pop 1s ease;
+}
+
+h1 {
+    color: #ff0066;
+    font-size: 24px;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ff0066;
+    font-weight: bold;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: red;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+@keyframes pop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>💖 Happy Valentine 💖</h1>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+// URL-аас нэр авах
+function getNameFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("name");
+}
+
+const name = getNameFromURL();
+const messageBox = document.getElementById("message");
+
+if (name) {
+    messageBox.innerHTML = "💘 " + name + ", Хайрдаа Valentine-ийн баярын мэнд хүргэе! ❤️";
+} else {
+    messageBox.innerHTML = "💖 Хайрдаа Valentine-ийн баярын мэнд хүргэе! ❤️";
+}
+
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
